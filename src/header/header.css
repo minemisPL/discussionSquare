@@ -1,0 +1,13 @@
+header {
+    text-align: center;
+    display: flex;
+    font-size: max(2rem, 3vw);
+    font-family: "Roboto Light", sans-serif;
+    height: 10vh;
+}
+
+p {
+    display: flex;
+    justify-content: center;
+    margin: auto auto;
+}
