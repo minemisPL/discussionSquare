@@ -6,7 +6,7 @@ header {
     height: 10vh;
 }
 
-p {
+header p {
     display: flex;
     justify-content: center;
     margin: auto auto;

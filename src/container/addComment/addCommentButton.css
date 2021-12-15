@@ -3,3 +3,16 @@
     bottom: 20px;
     right: 20px;
 }
+
+.addCommentButton p {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    background-color: white;
+    border-radius: 3rem;
+    padding-left: 0.8rem;
+    border: 0.2rem solid black;
+}
+
+.addCommentButton svg {
+}

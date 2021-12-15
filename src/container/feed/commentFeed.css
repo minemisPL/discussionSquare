@@ -1,6 +1,9 @@
 .feed {
-    margin: auto;
-    min-height: 50vh;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    min-height: 75vh;
     min-width: 40vh;
     max-width: 60rem;
+    border-radius: 3rem;
+    margin: auto auto 3rem;
 }

@@ -6,6 +6,7 @@ import "./container/container.css"
 import { ThemeProvider } from "styled-components";
 import { themes } from "./themes";
 import "./container/container.css"
+import "./footer/footer.css"
 
 function App() {
 

@@ -1,7 +1,14 @@
+import {IoAddCircleOutline} from "react-icons/all";
+import { IconContext } from "react-icons";
+
 const AddCommendButton = () => {
     return (
         <div className={"addCommentButton"}>
-            <h1>AddButton</h1>
+            <IconContext.Provider
+                value={{size: '4rem'}}
+            >
+                <p>ADD COMMENT<IoAddCircleOutline/></p>
+            </IconContext.Provider>
         </div>
     );
 };
