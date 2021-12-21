@@ -2,19 +2,28 @@ import CommentContent from "./commentContent/CommentContent";
 import CommentBottom from "./commentBottom/CommentBottom";
 import "./commentBottom/commentBottom.css"
 
-const Comment = ({ dateTime, username, content, likes }) => {
+const Comment = ({ commentData, likes, isOwnComment, deleteCommentMain }) => {
+
+    const deleteComment = () => {
+        deleteCommentMain(0)
+    }
+
+    const makeCommentBottom = (likes) => {
+        if (!isNaN(likes)) return <CommentBottom
+            likes={likes}
+            isOwnComment={isOwnComment}
+            deleteComment={deleteComment}
+        />
+    }
 
     return (
         <div>
             <CommentContent
-                dateTime={dateTime}
-                username={username}
-                content={content}
+                dateTime={commentData.dateTime}
+                username={commentData.username}
+                content={commentData.content}
             />
-            {likes &&
-            <CommentBottom
-                likes={likes}
-            />}
+            {makeCommentBottom(likes)}
         </div>
     );
 };

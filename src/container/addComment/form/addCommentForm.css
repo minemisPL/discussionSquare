@@ -1,0 +1,57 @@
+.addCommentForm {
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: min(50rem, 80vw);
+    background-color: white;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    padding: 1rem;
+    border-radius: 2rem;
+}
+
+.addCommentForm label {
+    font-size: 1.5rem;
+    display:block;
+    margin: 1rem;
+}
+
+.addCommentForm textarea,
+.addCommentForm input {
+    border: 1rem solid orange;
+    border-radius: 1rem;
+}
+
+#userNameInput {
+    width: 50%;
+    text-align: center;
+    font-size: 2rem;
+}
+
+#contentInput {
+    width: 80%;
+    text-align: left;
+    height: 10rem;
+}
+
+.submitButton {
+    margin: 1rem;
+    cursor: pointer;
+    font-size: 1.6rem;
+    padding: 1rem;
+    background-color: orange;
+    border-color: orange;
+    box-shadow: none;
+    border-radius: 1rem;
+}
+
+.closeButton {
+    position: absolute;
+    right: 5%;
+    font-size: 3rem;
+    color: orange;
+    cursor: pointer;
+    overflow: hidden;
+}

@@ -2,18 +2,25 @@
     margin-left: 3rem;
 }
 
-.likes {
+.commentBottomOwn {
+    display: flex;
+    justify-content: space-evenly;
+    position: relative;
+    left: max(-15vw, -12.5rem);
+}
+
+.commentBottomElement {
     cursor: pointer;
     position: relative;
     height: calc(1.3rem + 0.07rem);
 }
 
-.likes svg {
+.commentBottomElement svg {
     position: absolute;
     bottom: 0;
 }
 
-.likes p {
+.commentBottomElement p {
     position: absolute;
     left: calc(1.3rem + 0.2rem);
     margin: 0;

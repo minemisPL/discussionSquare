@@ -1,84 +1,50 @@
 import "./comment/commentContent/commentContent.css"
 import Comment from "./comment/Comment";
 import styled from "styled-components";
+import {isOwnComment} from "../../localStorage/localStorageAPI";
 
-const CommentFeed = () => {
-
-    const commentsData = [
-        {
-            dateTime: new Date(),
-            username: "Minemis",
-            content: "Hejka naklejka",
-            likes: 10,
-        },
-        {
-            dateTime: new Date(),
-            username: "Anna",
-            content: "Privit",
-            likes: 15,
-        },
-        {
-            dateTime: new Date(),
-            username: "Spoomer",
-            content: "Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker",
-            likes: 15,
-        },
-        {
-            dateTime: new Date(),
-            username: "Spoomer",
-            content: "Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker",
-            likes: 15,
-        },
-        {
-            dateTime: new Date(),
-            username: "Spoomer",
-            content: "Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker",
-            likes: 15,
-        },
-        {
-            dateTime: new Date(),
-            username: "Spoomer",
-            content: "Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker",
-            likes: 15,
-        },
-        {
-            dateTime: new Date(),
-            username: "Spoomer",
-            content: "Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker",
-            likes: 15,
-        },
-        {
-            dateTime: new Date(),
-            username: "Spoomer",
-            content: "Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker",
-            likes: 15,
-        },
-    ]
+const CommentFeed = ({ commentsData, deleteComment }) => {
 
     const makeComments = (commentsData) => {
         const comments = []
         commentsData.forEach(commentData => {
             comments.push(
-                <Comment
-                    dateTime={commentData.dateTime}
-                    username={commentData.username}
-                    content={commentData.content}
-                    likes={commentData.likes}
-                />
+                {
+                    id: commentData.id,
+                    comment: <Comment
+                        commentData={commentData}
+                        dateTime={commentData.dateTime}
+                        username={commentData.username}
+                        content={commentData.content}
+                        likes={commentData.likes}
+                        isOwnComment={isOwnComment(commentData.id)}
+                        deleteComment={deleteComment}
+                    />
+                }
             )
         })
 
         if (!comments.length) {
             comments.push(
-                <Comment
-                    username={"Minemis Blog"}
-                    content={"Looks like we don't have any posts yet... Let's be first!"}
-                />
+                {
+                    id: 0,
+                    comment: <Comment
+                        commentData={{
+                            dateTime: null,
+                            username: "Minemis Blog",
+                            content: "Looks like we don't have any posts yet... Let's be first!",
+                            likes: null
+                        }}
+                    />
+                }
             )
         }
 
-        return comments
+        return comments.reverse()
     }
+
+    const comments = makeComments(commentsData)
+
 
     const Feed = styled.div`
       outline: 0.4rem ${props => props.theme.primaryDark} solid;
@@ -88,7 +54,7 @@ const CommentFeed = () => {
 
     return (
         <Feed className={"feed"}>
-            {makeComments(commentsData)}
+            {comments.map(comment => comment.comment)}
         </Feed>
     );
 };
