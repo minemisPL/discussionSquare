@@ -27,6 +27,7 @@ const CommentDataProvider = ({ children }) => {
             username: name,
             content: content,
             likes: 0,
+            isEdited: false,
         })
 
         addOwnComment(id)
@@ -38,28 +39,40 @@ const CommentDataProvider = ({ children }) => {
 
         commentsList = commentsList.filter(commentData => {
              return commentData.id !== id
-         })
+        })
 
-         removeOwnComment(id)
-         setCommentData(commentsList)
+        removeOwnComment(id)
+        setCommentData(commentsList)
     }
 
     const likeComment = (id) => {
         addLike(id)
-        changeLikes(id, 1)
+        applyOnComment(id, commentData => {
+            commentData.likes++
+        })
     }
 
     const removeLikeFromComment = (id) => {
         removeLike(id)
-        changeLikes(id, -1)
+        applyOnComment(id, commentData => {
+            commentData.likes--
+        })
     }
 
-    const changeLikes = (id, amount) => {
+    const changeContent = (id, content) => {
+        applyOnComment(id,
+                commentData => {
+            commentData.content = content
+            commentData.isEdited = true
+        })
+    }
+
+    const applyOnComment = (id, consumer) => {
         let commentsList = [...commentData]
 
         commentsList.forEach(commentData => {
             if (commentData.id === id) {
-                commentData.likes = commentData.likes + amount
+                consumer(commentData)
             }
         })
 
@@ -72,6 +85,7 @@ const CommentDataProvider = ({ children }) => {
         set: setCommentData,
         like: likeComment,
         removeLike: removeLikeFromComment,
+        changeContent: changeContent,
     }
 
     return (

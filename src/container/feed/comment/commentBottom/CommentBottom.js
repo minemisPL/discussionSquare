@@ -4,7 +4,7 @@ import {IconContext} from "react-icons";
 import {useCommentDataFunctions} from "../../../../dataManagment/commentData";
 import {isLiked, isOwnComment as isOwnCommentFromApi} from "../../../../localStorage/localStorageAPI";
 
-const CommentBottom = ({ id ,likes }) => {
+const CommentBottom = ({ id ,likes, setIsEdit }) => {
 
     const deleteComment = useCommentDataFunctions().remove
     const likeComment = useCommentDataFunctions().like
@@ -21,7 +21,8 @@ const CommentBottom = ({ id ,likes }) => {
             <IconContext.Provider
                 value={{margin: '1rem', size: '1.3rem'}}>
                 {makeLike(isLiked(id))}
-                <div className={"commentBottomElement"}>
+                <div className={"commentBottomElement"}
+                     onClick={() => setIsEdit(true)}>
                     <AiOutlineEdit/>
                     <p>edit</p>
                 </div>

@@ -40,8 +40,6 @@ const AddCommentForm = ({ setIsAddComment }) => {
                         setContentError(!content)
 
                         if (name && content) {
-                            console.log("name: " + name)
-                            console.log("content: " + content)
                             addComment(name, content)
                             setIsAddComment(false)
                         }
