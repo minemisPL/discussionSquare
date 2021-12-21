@@ -37,10 +37,7 @@ const CommentBottom = ({ id ,likes, setIsEdit }) => {
             :
             <IconContext.Provider
                 value={{margin: '1rem', size: '1.3rem'}}>
-                <div className={"commentBottomElement"}>
-                    <AiOutlineEdit/>
-                    <p>{likes}</p>
-                </div>
+                {makeLike(isLiked(id))}
             </IconContext.Provider>
     }
 

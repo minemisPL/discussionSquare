@@ -1,6 +1,7 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {v4 as UUID} from "uuid";
 import {addLike, addOwnComment, removeLike, removeOwnComment} from "../localStorage/localStorageAPI";
+import {commentsData} from "../container/feed/commentDataDummy";
 
 const CommentDataContext = React.createContext(undefined)
 const CommentDataFunctions = React.createContext(undefined)
@@ -15,6 +16,10 @@ export const useCommentDataFunctions = () => {
 
 const CommentDataProvider = ({ children }) => {
     const [commentData, setCommentData] = useState([])
+
+    useEffect(() => {
+        setCommentData(commentsData)
+    }, [])
 
     const addComment = (name, content) => {
         const commentsList = [...commentData]
