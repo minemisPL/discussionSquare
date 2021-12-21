@@ -1,7 +1,16 @@
 import styled from "styled-components";
-import {AiOutlineDelete, AiOutlineEdit, BiLike} from "react-icons/all";
+import {AiFillLike, AiOutlineDelete, AiOutlineEdit, AiOutlineLike} from "react-icons/all";
 import {IconContext} from "react-icons";
-const CommentBottom = ({ likes, isOwnComment, deleteComment }) => {
+import {useCommentDataFunctions} from "../../../../dataManagment/commentData";
+import {isLiked, isOwnComment as isOwnCommentFromApi} from "../../../../localStorage/localStorageAPI";
+
+const CommentBottom = ({ id ,likes }) => {
+
+    const deleteComment = useCommentDataFunctions().remove
+    const likeComment = useCommentDataFunctions().like
+    const removeLike = useCommentDataFunctions().removeLike
+
+    const isOwnComment = isOwnCommentFromApi(id)
 
     const ComBot = styled.div`
       color: ${props => props.theme.secondaryColor};
@@ -11,17 +20,14 @@ const CommentBottom = ({ likes, isOwnComment, deleteComment }) => {
         return isOwnComment ?
             <IconContext.Provider
                 value={{margin: '1rem', size: '1.3rem'}}>
-                <div className={"commentBottomElement"}>
-                    <BiLike />
-                    <p>{likes}</p>
-                </div>
+                {makeLike(isLiked(id))}
                 <div className={"commentBottomElement"}>
                     <AiOutlineEdit/>
                     <p>edit</p>
                 </div>
                 <div
                     className={"commentBottomElement"}
-                    onClick={() => deleteComment()}
+                    onClick={() => deleteComment(id)}
                 >
                     <AiOutlineDelete/>
                     <p>delete</p>
@@ -31,10 +37,26 @@ const CommentBottom = ({ likes, isOwnComment, deleteComment }) => {
             <IconContext.Provider
                 value={{margin: '1rem', size: '1.3rem'}}>
                 <div className={"commentBottomElement"}>
-                    <BiLike />
+                    <AiOutlineEdit/>
                     <p>{likes}</p>
                 </div>
             </IconContext.Provider>
+    }
+
+    const makeLike = (isLiked) => {
+        return (
+            <div className={"commentBottomElement"}
+                 onClick={() => {
+                     isLiked ?
+                         removeLike(id)
+                         :
+                         likeComment(id)
+
+                 }}>
+                {isLiked ? <AiFillLike /> : <AiOutlineLike />}
+                <p>{likes}</p>
+            </div>
+        )
     }
 
     return (

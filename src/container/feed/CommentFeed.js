@@ -1,9 +1,11 @@
 import "./comment/commentContent/commentContent.css"
 import Comment from "./comment/Comment";
 import styled from "styled-components";
-import {isOwnComment} from "../../localStorage/localStorageAPI";
+import {useCommentData} from "../../dataManagment/commentData";
 
-const CommentFeed = ({ commentsData, deleteComment }) => {
+const CommentFeed = () => {
+
+    const commentsData = useCommentData()
 
     const makeComments = (commentsData) => {
         const comments = []
@@ -13,12 +15,6 @@ const CommentFeed = ({ commentsData, deleteComment }) => {
                     id: commentData.id,
                     comment: <Comment
                         commentData={commentData}
-                        dateTime={commentData.dateTime}
-                        username={commentData.username}
-                        content={commentData.content}
-                        likes={commentData.likes}
-                        isOwnComment={isOwnComment(commentData.id)}
-                        deleteComment={deleteComment}
                     />
                 }
             )
@@ -33,7 +29,7 @@ const CommentFeed = ({ commentsData, deleteComment }) => {
                             dateTime: null,
                             username: "Minemis Blog",
                             content: "Looks like we don't have any posts yet... Let's be first!",
-                            likes: null
+                            likes: NaN
                         }}
                     />
                 }
@@ -44,7 +40,6 @@ const CommentFeed = ({ commentsData, deleteComment }) => {
     }
 
     const comments = makeComments(commentsData)
-
 
     const Feed = styled.div`
       outline: 0.4rem ${props => props.theme.primaryDark} solid;

@@ -1,7 +1,8 @@
 import {AiFillCloseCircle} from "react-icons/all";
 import {useState} from "react";
+import {useCommentDataFunctions} from "../../../dataManagment/commentData";
 
-const AddCommentForm = ({ setIsAddComment, addComment }) => {
+const AddCommentForm = ({ setIsAddComment }) => {
 
     const [isNameError, setNameError] = useState(false)
     const [isContentError, setContentError] = useState(false)
@@ -9,6 +10,7 @@ const AddCommentForm = ({ setIsAddComment, addComment }) => {
     const [name, setName] = useState("")
     const [content, setContent] = useState("")
 
+    const addComment = useCommentDataFunctions().add
 
     return (
         <div className={"addCommentForm"}>

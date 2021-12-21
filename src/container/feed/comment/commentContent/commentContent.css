@@ -24,3 +24,14 @@
     padding-left: 0.5rem;
     padding-bottom: 1rem;
 }
+
+.edit textarea {
+    margin-top: 1rem;
+    border: none;
+    background-color: #cdf4e5;
+}
+
+.edit button {
+    margin-left: 3rem;
+    border: none;
+}

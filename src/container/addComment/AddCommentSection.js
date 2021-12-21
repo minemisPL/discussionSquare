@@ -4,28 +4,22 @@ import "./form/addCommentForm.css"
 import AddCommentForm from "./form/AddCommentForm";
 import {useState} from "react";
 
-const AddCommentSection = ({ addComment }) => {
+const AddCommentSection = () => {
 
     const [isAddComment, setIsAddComment] = useState(false)
 
-    const returnFormIfButtonClicked = (isAddComment) => {
-        if (isAddComment) {
-            return <AddCommentForm
-                    setIsAddComment={setIsAddComment}
-                    addComment={addComment}
+    const makeFormOrButton = (isAddComment) => {
+        return isAddComment ?
+            <AddCommentForm setIsAddComment={setIsAddComment}/>
+            :
+            <AddCommendButton
+                setIsAddComment={setIsAddComment}
             />
-        }
     }
 
     return (
         <div>
-            {
-                returnFormIfButtonClicked(isAddComment)
-            }
-
-            <AddCommendButton
-                setIsAddComment={setIsAddComment}
-            />
+            {makeFormOrButton(isAddComment)}
         </div>
     );
 };

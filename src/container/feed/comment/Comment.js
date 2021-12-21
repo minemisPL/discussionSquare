@@ -2,17 +2,12 @@ import CommentContent from "./commentContent/CommentContent";
 import CommentBottom from "./commentBottom/CommentBottom";
 import "./commentBottom/commentBottom.css"
 
-const Comment = ({ commentData, likes, isOwnComment, deleteCommentMain }) => {
-
-    const deleteComment = () => {
-        deleteCommentMain(0)
-    }
+const Comment = ({ commentData }) => {
 
     const makeCommentBottom = (likes) => {
         if (!isNaN(likes)) return <CommentBottom
             likes={likes}
-            isOwnComment={isOwnComment}
-            deleteComment={deleteComment}
+            id={commentData.id}
         />
     }
 
@@ -23,7 +18,7 @@ const Comment = ({ commentData, likes, isOwnComment, deleteCommentMain }) => {
                 username={commentData.username}
                 content={commentData.content}
             />
-            {makeCommentBottom(likes)}
+            {makeCommentBottom(commentData.likes)}
         </div>
     );
 };

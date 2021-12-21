@@ -7,16 +7,17 @@ import { ThemeProvider } from "styled-components";
 import { themes } from "./themes";
 import "./container/container.css"
 import "./footer/footer.css"
+import CommentDataProvider from "./dataManagment/commentData";
 
 function App() {
-
-
 
     return (
         <div className="App dupa">
             <ThemeProvider theme={themes.desertLight}>
                 <Header />
-                <Container />
+                <CommentDataProvider>
+                    <Container />
+                </CommentDataProvider>
                 <Footer />
             </ThemeProvider>
         </div>

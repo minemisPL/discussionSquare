@@ -1,19 +1,12 @@
 import {likedComments, ownComments} from "./keys";
+import {addToStorage, isPresent, removeFromStorage} from "./utils";
 
 export const isOwnComment = (id) => {
-    const ownCommentsIds = getFromStorage(ownComments)
+    return  isPresent(id, ownComments)
+}
 
-    let isFound = false
-
-    ownCommentsIds.forEach(ownId => {
-        if (ownId === id) {
-            isFound = true
-        }
-    })
-    if (!isFound) {
-    }
-
-    return isFound
+export const isLiked = (id) => {
+    return isPresent(id, likedComments)
 }
 
 export const addOwnComment = id => {
@@ -30,26 +23,4 @@ export const removeOwnComment = id => {
 
 export const removeLike = id => {
     removeFromStorage(id, likedComments)
-}
-
-const getFromStorage = (storageName) => {
-    const commentIds = localStorage.getItem(storageName)
-    return JSON.parse(commentIds) || []
-}
-
-const addToStorage = (id, storageName) => {
-    const commentIds = getFromStorage(storageName)
-    commentIds.push(id)
-
-    localStorage.setItem(storageName, JSON.stringify(commentIds))
-}
-
-const removeFromStorage = (id, storageName) => {
-    let commentIds = getFromStorage(storageName)
-
-    commentIds = commentIds.filter(commentId => {
-        return commentId !== id
-    })
-
-    localStorage.setItem(storageName, JSON.stringify(commentIds))
 }

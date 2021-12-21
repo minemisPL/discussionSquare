@@ -3,17 +3,15 @@ import "./feed/commentFeed.css"
 import styled from "styled-components";
 import AddCommentSection from "./addComment/AddCommentSection";
 import {commentsData as dataDummy} from "./feed/commentDataDummy";
-import {v4 as UUID} from "uuid";
-import {useEffect, useState} from "react";
-import {addOwnComment, removeOwnComment} from "../localStorage/localStorageAPI";
-import CommentDataProvider from "../dataManagment/commentData";
+import { useEffect } from "react";
+import {useCommentDataFunctions} from "../dataManagment/commentData";
 
 const Container = () => {
 
-    const [commentData, setCommentData] = useState([])
+    const setCommentData = useCommentDataFunctions().set
 
     useEffect(() => {
-        setCommentData(dataDummy)
+        //setCommentData(dataDummy)
     }, [])
 
     const Main = styled.main`
@@ -21,48 +19,13 @@ const Container = () => {
       background-color: ${props => props.theme.primaryColor};
     `
 
-    const addComment = (name, content) => {
-        const commentsList = [...commentData]
-
-        const id = UUID()
-
-        commentsList.push({
-            id: id,
-            dateTime: new Date(),
-            username: name,
-            content: content,
-            likes: 0,
-        })
-
-        addOwnComment(id)
-        setCommentData(commentsList)
-    }
-
-    const deleteComment = (id) => {
-        const commentsList = [...commentData]
-
-        commentsList.filter(commentData => commentData.id === id)
-
-        removeOwnComment(id)
-        setCommentData(commentsList)
-    }
-
     return (
         <Main className={"main"}>
-            <CommentDataProvider>
-                <div className={"containerFeed"}>
-                    <CommentFeed
-                        commentsData={commentData}
-                        deleteComment={deleteComment}
-                    />
-                </div>
+            <div className={"containerFeed"}>
+                <CommentFeed/>
+            </div>
 
-                <div>
-                    <AddCommentSection
-                        addComment={addComment}
-                    />
-                </div>
-            </CommentDataProvider>
+            <AddCommentSection/>
         </Main>
     );
 };
